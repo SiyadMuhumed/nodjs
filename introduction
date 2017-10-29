@@ -1,0 +1,54 @@
+1 Introduction
+
+The popularity of JavaScript applications has been skyrocketing in the last few years, 
+with Node.js definetly facilitating this growth. If we look at modulcounts.com we will see there are more Node packages in the wild than in the Ruby world.
+In addition, Node packages are growing faster than Ruby, Pythone, and Java combined.
+
+In this article we are going to take a look at the most important aspects of Node.
+
+What's making Node more popular?
+Node markets itself as an asynchronous, event-driven framework built on top of Chrome's
+JavaScript engine and designed for creating scalable network applications. It's basically JavaScript plus bunch of 
+C/C++ under the hood for thiongs like interacting with the filesystem, starting up HTTP
+or TCP servers and etc.
+
+Node is single-threaded and uses a concurrency model based on an event loop. It is 
+non-blocking, so it doesn't make the program wait, but instead it registers a callback 
+and lets the program continue. This means it can handle concurrent operations without 
+multiplie threads of excution, so it can scale pritty well.
+
+In a sequential language such as PHP, in order to get the HTML content of a page you 
+would do the following:
+$r$response = file_get_contents("http://example.com");
+print_r($response);
+
+The above example is JavaScript in Node , you register some callbacks instead:
+var http = require('http');
+
+http.request({ hostname: 'example.com' }, function(res) {
+ res.setEncoding('utf8');
+ res.on('data', function(chunk) {
+   consol.log(chunck);
+   })
+ }).end();
+
+There are two big differences between the two implementations:
+
+. Node allows you to perform other tasks while waiting to be notified when the response is available.
+. The Node application is not buffering data into memory, but instead it's outputing it chunk-by-chunk.
+In Node, all of the libraries have been designed from the ground up to be non-blocking, but the same 
+can not be said for the others.
+
+
+1.2 Use cases
+Node is ideal for I/O bound applications (or those that wait on user events), but not so great for CPU-heavy applications. Good examples include data-intensive realtime applications (DIRT), single page applications, JSON APIs, and data-streaming applications.
+1.3 npm, the official Node package manager
+Node owes a big part of its success to npm, the package manager that comes bundled with it. There are a lot of great things about npm:
+	•	It installs application dependencies locally, not globally.
+	•	It handles multiple versions of the same module at the same time.
+	•	You can specify tarballs or git repositories as dependencies.
+	•	It's really easy to publish your own module to the npm registry.
+	•	It's useful for creating CLI utilities that others can install (with npm) and use right away.
+1.4 Resources
+For more details on why you would use Node, check out this article.
+
